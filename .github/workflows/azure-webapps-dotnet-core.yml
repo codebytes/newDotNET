@@ -23,7 +23,7 @@ env:
   AZURE_WEBAPP_NAME: your-app-name    # set this to the name of your Azure Web App
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '8.0.x'                 # set this to the .NET Core version to use
-
+  PROJECT_FOLDER: 'src/SampleApi'         # set this to the folder containing your project
 on:
   push:
     branches: [ "main" ]
@@ -53,7 +53,7 @@ jobs:
             ${{ runner.os }}-nuget-
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build --configuration Release ${{env.ProjectFolder}}
 
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
